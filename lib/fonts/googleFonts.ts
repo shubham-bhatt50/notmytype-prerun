@@ -19,14 +19,15 @@ export async function fetchGoogleFonts(): Promise<GoogleFont[]> {
     }
 
     const data = await response.json();
-    cachedFonts = data.items.map((font: any) => ({
+    const fonts: GoogleFont[] = data.items.map((font: any) => ({
       family: font.family,
       category: mapCategory(font.category),
       variants: font.variants,
       subsets: font.subsets,
     }));
 
-    return cachedFonts;
+    cachedFonts = fonts;
+    return fonts;
   } catch (error) {
     console.error("Error fetching Google Fonts:", error);
     // Return a fallback list of popular fonts
